@@ -49,10 +49,8 @@ export default function Calculator() {
   return (
     <View style={styles.container}>
       <View style={styles.displayContainer}>
-        <View style={styles.memoryContainer}> {history.slice(-5).map((item, index) => (
-          <Text key={index} style={styles.memoryText}>
-            {item}
-          </Text>
+        <View style={styles.memoryContainer}>{history.slice(-5).map((item, index) => (
+          <Text key={index} style={styles.memoryText}>{item}</Text>
         ))}
         </View>
         <Text style={styles.displayText}>{display}</Text>
@@ -195,7 +193,7 @@ const styles = StyleSheet.create({
   memoryContainer: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    alignItems: 'end',
+    alignItems: 'flex-end',
     marginBottom: 10,
   },
   memoryText: {
