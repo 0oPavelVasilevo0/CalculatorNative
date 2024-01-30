@@ -11,6 +11,9 @@ export default function Calculator() {
       calculateResult();
     } else if (value === 'C') {
       clearDisplay();
+    } else if (value === 'X') {
+      //History
+      clearHistory();
     } else if (value === '«') {
       // Backspace
       setDisplay((prevDisplay) => prevDisplay.slice(0, -1));
@@ -46,10 +49,21 @@ export default function Calculator() {
     setResult('');
   };
 
+  const clearHistory = () => {
+    setHistory([]);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#171818" />
       <View style={styles.displayContainer}>
+        {history.length > 0 && (
+          <TouchableOpacity
+            style={styles.buttonHistory}
+            onPress={() => handlePress('X')}>
+            <Text style={styles.buttonClearingHistory}>cleare history</Text>
+          </TouchableOpacity>
+        )}
         <View style={styles.memoryContainer}>{history.slice(-5).map((item, index) => (
           <Text key={index} style={styles.memoryText}>{item}</Text>
         ))}
@@ -216,6 +230,14 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     borderColor: 'gray',
   },
+  buttonHistory: {
+    width: '30%',
+    height: 80,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
+    marginBottom: 10,
+    borderWidth: 0,
+  },
   buttonText: {
     color: '#dae4e6',
     fontSize: 24,
@@ -244,5 +266,9 @@ const styles = StyleSheet.create({
   buttonCancel: {
     color: 'red',
     fontSize: 24,
+  },
+  buttonClearingHistory: {
+    color: 'red',
+    fontSize: 12,
   },
 });
