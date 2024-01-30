@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 export default function Calculator() {
   const [display, setDisplay] = useState('');
   const [result, setResult] = useState('');
+  const [history, setHistory] = useState([]);
 
   const handlePress = (value) => {
     if (value === '=') {
@@ -31,6 +32,10 @@ export default function Calculator() {
     try {
       const calculatedResult = eval(display);
       setResult(calculatedResult.toString());
+      setHistory((prevHistory) => [
+        ...prevHistory,
+        calculatedResult.toString(),
+      ]);
     } catch (error) {
       setResult('Error');
     }
@@ -44,6 +49,12 @@ export default function Calculator() {
   return (
     <View style={styles.container}>
       <View style={styles.displayContainer}>
+        <View style={styles.memoryContainer}> {history.slice(-5).map((item, index) => (
+          <Text key={index} style={styles.memoryText}>
+            {item}
+          </Text>
+        ))}
+        </View>
         <Text style={styles.displayText}>{display}</Text>
         <Text style={styles.resultText}>{result}</Text>
       </View>
@@ -180,6 +191,16 @@ const styles = StyleSheet.create({
     color: '#00a1d5',
     fontSize: 24,
     textAlignVertical: 'bottom',
+  },
+  memoryContainer: {
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    alignItems: 'end',
+    marginBottom: 10,
+  },
+  memoryText: {
+    color: '#918062',
+    fontSize: 18,
   },
   buttonsContainer: {
     paddingTop: 20,
