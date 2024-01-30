@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, StatusBar } from 'react-native';
 
 export default function Calculator() {
   const [display, setDisplay] = useState('');
@@ -48,6 +48,7 @@ export default function Calculator() {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor="#171818" />
       <View style={styles.displayContainer}>
         <View style={styles.memoryContainer}>{history.slice(-5).map((item, index) => (
           <Text key={index} style={styles.memoryText}>{item}</Text>
